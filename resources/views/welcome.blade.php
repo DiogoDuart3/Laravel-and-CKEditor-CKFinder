@@ -131,7 +131,6 @@
 </div>
 
 
-
 @include('ckfinder::setup')
 
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
@@ -146,13 +145,21 @@
         // Use named CKFinder connector route
         filebrowserUploadUrl: '{{ route('ckfinder_connector') }}?command=QuickUpload&type=Files',
     });
+    CKEDITOR.addStylesSet('default',
+        [
+            {name: 'Botão Primario', element: 'a', attributes: {'class': 'btn btn-primary'}},
+            {name: 'Botão Sucesso', element: 'a', attributes: {'class': 'btn btn-success'}},
+            {name: 'Botão Perigo', element: 'a', attributes: {'class': 'btn btn-danger'}}],
+    );
     CKFinder.setupCKEditor(editor);
 </script>
 
 <script>
-    function aplica(){
+    function aplica() {
         $('#test').html(CKEDITOR.instances['editor1'].getData());
     }
+
+    setTimeout(aplica(), 2000)
 </script>
 
 </body>
