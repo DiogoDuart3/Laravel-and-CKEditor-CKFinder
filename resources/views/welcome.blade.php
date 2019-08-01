@@ -64,6 +64,7 @@
             margin-bottom: 30px;
         }
     </style>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 </head>
 
 <body>
@@ -96,26 +97,64 @@
             <a href="https://forge.laravel.com">Forge</a>
             <a href="https://github.com/laravel/laravel">GitHub</a>
         </div>
-        <div>
-            <textarea class="form-control" id="editor1" name="summary-ckeditor"></textarea>
-        </div>
 
-        @include('ckfinder::setup')
 
-        <script type="text/javascript" src="{{ asset('js/ckfinder/ckfinder.js') }}"></script>
-        <script src="https://cdn.ckeditor.com/4.11.4/full/ckeditor.js"></script>
-        <script>
-            CKEDITOR.replace('editor1', {
-                // Use named CKFinder browser route
-                filebrowserBrowseUrl: '{{ route('ckfinder_browser') }}',
-                // Use named CKFinder connector route
-                filebrowserUploadUrl: '{{ route('ckfinder_connector') }}?command=QuickUpload&type=Files'
-            });
-            var editor = CKEDITOR.replace('ckfinder');
-            CKFinder.setupCKEditor(editor);
-        </script>
     </div>
 </div>
+
+<div class="container">
+
+    <div id="test">
+        <h1>Isto é um teste</h1>
+        <div class="row">
+            <div class="col-6">
+                Esquerda
+            </div>
+            <div class="col-6">
+                Direita
+            </div>
+        </div>
+    </div>
+
+    <textarea class="form-control" id="editor1" name="summary-ckeditor">
+                <h1>Isto é um teste</h1>
+                <div class="row">
+                    <div class="col-6">
+                        Esquerda
+                    </div>
+                    <div class="col-6">
+                        Direita
+                    </div>
+                </div>
+            </textarea>
+    <button onclick="aplica();">Aplica</button>
+</div>
+
+
+
+@include('ckfinder::setup')
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+
+<script type="text/javascript" src="{{ asset('js/ckfinder/ckfinder.js') }}"></script>
+<script src="https://cdn.ckeditor.com/4.11.4/full/ckeditor.js"></script>
+<script>
+    var editor = CKEDITOR.replace('editor1', {
+        // Use named CKFinder browser route
+        filebrowserBrowseUrl: '{{ route('ckfinder_browser') }}',
+        enterMode: CKEDITOR.ENTER_BR,
+        // Use named CKFinder connector route
+        filebrowserUploadUrl: '{{ route('ckfinder_connector') }}?command=QuickUpload&type=Files',
+    });
+    CKFinder.setupCKEditor(editor);
+</script>
+
+<script>
+    function aplica(){
+        $('#test').html(CKEDITOR.instances['editor1'].getData());
+    }
+</script>
+
 </body>
 
 </html>
